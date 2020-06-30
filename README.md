@@ -5,4 +5,4 @@
 
 ## Inital Architecture
 
-![alt text](./Diagrams/Initial_Design.jpeg)
+![alt text](./Diagrams/Initial_Design.png)
