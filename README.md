@@ -28,3 +28,11 @@ Plants:
 4. https://www.kaggle.com/alxmamaev/flowers-recognition
 5. https://www.kaggle.com/yanhanzhu/globalwheatdetectioncombineddata
 6. https://www.kaggle.com/msheriey/104-flowers-garden-of-eden
+7. https://www.kaggle.com/gverzea/edible-wild-plants?
+8. https://www.kaggle.com/sarkararpan/limited-plant-data-color?
+9. https://www.kaggle.com/rednivrug/flower-recognition-he?
+10. https://www.kaggle.com/alok268/flower-image?
+11. https://www.kaggle.com/aritrase/flower-classification?
+12. https://www.kaggle.com/ashneg/flower-dataset?
+13. https://www.kaggle.com/mbkinaci/purple-flower-photos
+14. https://www.kaggle.com/ravishranjan/flower-dataset?
