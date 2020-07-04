@@ -40,3 +40,10 @@ Plants:
 Humans: 
 1. https://www.kaggle.com/laurentmih/aisegmentcom-matting-human-datasets?
 2. https://www.kaggle.com/atulanandjha/lfwpeople
+3. https://www.kaggle.com/greatgamedota/ffhq-face-data-set
+4. https://www.kaggle.com/playlist/men-women-classification?
+5. https://www.kaggle.com/xhlulu/140k-real-and-fake-faces
+6. https://www.kaggle.com/gmlmrinalini/genderdetectionface?
+7. https://www.kaggle.com/ashishjangra27/face-mask-12k-images-dataset
+8. https://www.kaggle.com/varump66/face-images-13233?
+9. https://www.kaggle.com/hereisburak/pins-face-recognition?
