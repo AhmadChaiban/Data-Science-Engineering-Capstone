@@ -36,3 +36,7 @@ Plants:
 12. https://www.kaggle.com/ashneg/flower-dataset?
 13. https://www.kaggle.com/mbkinaci/purple-flower-photos
 14. https://www.kaggle.com/ravishranjan/flower-dataset?
+
+Humans: 
+1. https://www.kaggle.com/laurentmih/aisegmentcom-matting-human-datasets?
+2. https://www.kaggle.com/atulanandjha/lfwpeople
