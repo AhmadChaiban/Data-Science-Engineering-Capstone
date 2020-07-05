@@ -2,7 +2,7 @@
 
 ## Inital Architecture
 
-![alt text](./Diagrams/Initial_Design_v2.png)
+![alt text](./Diagrams/Initial_Design_v3.png)
 
 ## Potential Datasets
 Animals:
