@@ -1,8 +1,20 @@
 # Data Science and Engineering Capstone
 
+## Introduction
+I've collected about 1 million images of animals, plants and humans. 
+
 ## Inital Architecture
 
 ![alt text](./Diagrams/Initial_Design_v4.png)
+
+## Process
+The list of numbers below refers to each phase in the diagram
+1. Basic preprocess (image naming and directory organization) and upload to s3 bucket. There are about 55 gbs of images.
+2. Start of ETL process
+
+## Tools
+1. Apache Airflow
+2. Apache Spark
 
 ## Potential Datasets
 Animals:
