@@ -32,9 +32,9 @@ def get_data_files(main_directory):
                  list of song file paths
 
     """
-    plant_files_list = globlin(main_directory + '/Animal Images/**/*.*' , recursive=True)
-    animal_files_list = globlin(main_directory + '/Human Images/**/*.*', recursive=True)
-    human_files_list = globlin(main_directory + '/Plant Images/**/*.*', recursive=True)
+    plant_files_list = globlin(main_directory + '/animal/**/*.*' , recursive=True)
+    animal_files_list = globlin(main_directory + '/human/**/*.*', recursive=True)
+    human_files_list = globlin(main_directory + '/plant/**/*.*', recursive=True)
     # print('************************************')
     # print('Plant Image Files List')
     # print('************************************')
