@@ -32,9 +32,9 @@ def get_data_files(main_directory):
                  list of song file paths
 
     """
-    plant_files_list = globlin(main_directory + '/animal/**/*.*' , recursive=True)
-    animal_files_list = globlin(main_directory + '/human/**/*.*', recursive=True)
-    human_files_list = globlin(main_directory + '/plant/**/*.*', recursive=True)
+    plant_files_list = globlin(main_directory + '/plant/**/*.*' , recursive=True)
+    animal_files_list = globlin(main_directory + '/animal/**/*.*', recursive=True)
+    human_files_list = globlin(main_directory + '/human/**/*.*', recursive=True)
     # print('************************************')
     # print('Plant Image Files List')
     # print('************************************')
@@ -85,6 +85,14 @@ def create_bucket(bucket_name, KEY, SECRET, region=None):
     print('************************************')
     return s3_client
 
+def get_bucket(bucket_name, KEY, SECRET, region = None):
+
+    s3_client = boto3.client('s3',
+                             region_name=region,
+                             aws_access_key_id=KEY,
+                             aws_secret_access_key=SECRET)
+
+    return s3_client
 
 
 def upload_file_s3(file_name, bucket):
@@ -100,9 +108,9 @@ def upload_file_s3(file_name, bucket):
 
     # If S3 object_name was not specified, use file_name
     try:
-        response = s3_client.upload_file(file_name.replace('./',''),
+        response = s3_client.upload_file(file_name.replace('\\','/'),
                                          bucket,
-                                         file_name.replace('./',''))
+                                         file_name.replace('\\','/').replace('D:/',''))
         print("Uploaded " + file_name)
     except ClientError as e:
         print("Failed to upload " + file_name)
@@ -144,10 +152,15 @@ if __name__ == '__main__':
     print(len(animal_files_list))
     print(len(human_files_list))
 
-    s3_client = create_bucket('capstone-project-2187',
-                              KEY,
-                              SECRET,
-                              'us-west-2')
+    # s3_client = create_bucket('capstone-project-2187',
+    #                           KEY,
+    #                           SECRET,
+    #                           'us-west-2')
+
+    s3_client = get_bucket('capstone-project-2187',
+                                  KEY,
+                                  SECRET,
+                                  'us-west-2')
 
     upload_files_s3(plant_files_list,
                     'capstone-project-2187')
