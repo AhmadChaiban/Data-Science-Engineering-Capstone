@@ -10,6 +10,7 @@ I've collected about 1 million images of animals, plants and humans.
 ## Process
 The list of numbers below refers to each phase in the diagram
 1. Basic preprocess (image naming and directory organization) and upload to s3 bucket. There are about 55 gbs of images.
+- The raw data had to be unpacked from all the different folders and renamed (to avoid naming conflicts)
 2. Start of ETL process
 
 ## Tools
