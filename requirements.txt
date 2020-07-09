@@ -1,0 +1,5 @@
+shutil
+logging
+boto3
+glob
+configparser
