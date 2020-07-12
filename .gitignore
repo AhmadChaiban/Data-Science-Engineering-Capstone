@@ -8,3 +8,5 @@ Data/59760_840806_bundle_archive.zip
 Data/674157_1185810_bundle_archive.zip
 
 *.cfg
+
+AWS_Tools/__pycache__/

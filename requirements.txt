@@ -3,3 +3,5 @@ logging
 boto3
 glob
 configparser
+multiprocessing
+numpy

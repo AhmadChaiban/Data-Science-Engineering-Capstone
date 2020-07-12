@@ -1,9 +1,11 @@
 import logging
 import boto3
+import numpy as np
 from botocore.exceptions import ClientError
 ## The 7bb globlin
 from glob import glob as globlin
 import configparser
+#from s3_parallel_uploads import execute_parallel_uploads
 
 
 def get_key_secret():
@@ -95,7 +97,7 @@ def get_bucket(bucket_name, KEY, SECRET, region = None):
     return s3_client
 
 
-def upload_file_s3(file_name, bucket):
+def upload_file_s3(file_name, bucket, s3_client):
     """
         Upload a file to an S3 bucket
 
@@ -120,7 +122,7 @@ def upload_file_s3(file_name, bucket):
 
 
 
-def upload_files_s3(files, bucket):
+def upload_files_s3(files, bucket, s3_client):
     """
         uploading multiple files to the s3 instance
 
@@ -133,43 +135,13 @@ def upload_files_s3(files, bucket):
     print('************************************')
 
     for i in range(len(files)):
-        upload_file_s3(files[i], bucket)
+        upload_file_s3(files[i], bucket, s3_client)
 
     print('************************************')
     print('Upload complete')
     print('************************************')
 
 
-
-if __name__ == '__main__':
-
-    KEY, SECRET = get_key_secret()
-
-    main_directory = "D:/capstone data"
-    plant_files_list, animal_files_list, human_files_list = get_data_files(main_directory)
-
-    print(len(plant_files_list))
-    print(len(animal_files_list))
-    print(len(human_files_list))
-
-    # s3_client = create_bucket('capstone-project-2187',
-    #                           KEY,
-    #                           SECRET,
-    #                           'us-west-2')
-
-    s3_client = get_bucket('capstone-project-2187',
-                                  KEY,
-                                  SECRET,
-                                  'us-west-2')
-
-    upload_files_s3(plant_files_list,
-                    'capstone-project-2187')
-
-    upload_files_s3(animal_files_list,
-                    'capstone-project-2187')
-
-    upload_files_s3(human_files_list,
-                    'capstone-project-2187')
 
 
 
