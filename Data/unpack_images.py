@@ -6,7 +6,8 @@ def user_feedback(message):
     print(message)
     print("*********************************")
 
-
+### The images were previously on a different disc. They have now been unpacked.
+### This script is basically archived at this point and being kept for future use.
 def getFileList(cateogry_path):
     user_feedback('Unpacking '+ cateogry_path + ' folders...')
     image_paths = globlin('D:/capstone data/' + cateogry_path + '/**/*.*', recursive=True)
@@ -22,7 +23,6 @@ def move_files(image_paths, target_path):
         shutil.move(single_path, save_path)
         print('moved as: ' + save_path)
         index += 1
-
 
 # if __name__ == '__main__':
 #     getFileList('animal')
