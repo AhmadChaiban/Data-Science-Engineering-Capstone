@@ -1,7 +1,5 @@
-shutil
-logging
+pyserial
 boto3
-glob
 configparser
-multiprocessing
+multiprocess
 numpy

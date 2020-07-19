@@ -24,34 +24,6 @@ def get_key_secret():
     return KEY, SECRET
 
 
-def get_data_files(main_directory):
-    """
-        Using glob to get the paths of all the file names
-        to be uploaded
-
-        :param main_directory: the main directory to begin searching
-        :return: list of log file paths,
-                 list of song file paths
-
-    """
-    plant_files_list = globlin(main_directory + '/plant/**/*.*' , recursive=True)
-    animal_files_list = globlin(main_directory + '/animal/**/*.*', recursive=True)
-    human_files_list = globlin(main_directory + '/human/**/*.*', recursive=True)
-    # print('************************************')
-    # print('Plant Image Files List')
-    # print('************************************')
-    # print(plant_files_list)
-    # print('************************************')
-    # print('Animal Image Files List')
-    # print('************************************')
-    # print(animal_files_list)
-    # print('************************************')
-    # print('Human Image Files List')
-    # print('************************************')
-    # print(human_files_list)
-    return plant_files_list, animal_files_list, human_files_list
-
-
 def create_bucket(bucket_name, KEY, SECRET, region=None):
     """
         Create an S3 bucket in us-west-2
@@ -89,58 +61,16 @@ def create_bucket(bucket_name, KEY, SECRET, region=None):
 
 def get_bucket(bucket_name, KEY, SECRET, region = None):
 
-    s3_client = boto3.client('s3',
+    s3_resource = boto3.resource('s3',
                              region_name=region,
                              aws_access_key_id=KEY,
                              aws_secret_access_key=SECRET)
 
-    return s3_client
+    return s3_resource
 
-
-def upload_file_s3(file_name, bucket, s3_client):
-    """
-        Upload a file to an S3 bucket
-
-        :param file_name: File to upload
-        :param bucket: s3 Bucket name to upload to
-        :param object_name: S3 object name. If not specified then file_name is used
-        :return: True if file was uploaded,
-                 else False
-    """
-
-    # If S3 object_name was not specified, use file_name
-    try:
-        response = s3_client.upload_file(file_name.replace('\\','/'),
-                                         bucket,
-                                         file_name.replace('\\','/').replace('D:/',''))
-        print("Uploaded " + file_name)
-    except ClientError as e:
-        print("Failed to upload " + file_name)
-        logging.error(e)
-        return False
-    return True
-
-
-
-def upload_files_s3(files, bucket, s3_client):
-    """
-        uploading multiple files to the s3 instance
-
-        :param files: a list of files to upload
-        :bucket: name of the s3 bucket
-    """
-
-    print('************************************')
-    print('Uploading files to s3 bucket...')
-    print('************************************')
-
-    for i in range(len(files)):
-        upload_file_s3(files[i], bucket, s3_client)
-
-    print('************************************')
-    print('Upload complete')
-    print('************************************')
-
+if __name__ == '__main__':
+    KEY, SECRET = get_key_secret()
+    create_bucket('capstone-project-2187', KEY, SECRET, region=None)
 
 
 

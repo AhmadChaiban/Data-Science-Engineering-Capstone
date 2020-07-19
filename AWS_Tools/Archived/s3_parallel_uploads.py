@@ -1,6 +1,6 @@
 from multiprocess import Pool
 import numpy as np
-from s3_create import upload_files_s3, get_key_secret, create_bucket, get_data_files
+from s3_create import upload_files_s3, get_key_secret, create_bucket, get_data_files, get_bucket
 
 def get_process_number(category_list):
     if len(category_list)%30000 == 0:
@@ -18,9 +18,9 @@ def get_parallel_process_list(pool, number_of_processes, category_list):
         if len(category_list) - last_index < 30000:
             last_index = len(category_list)%30000
         parallel_processes.append(
-            pool.apply_async(upload_files_s3.work(), [category_list[index: last_index],
+            pool.apply_async(upload_files_s3, [category_list[index: last_index],
                                                'capstone-project-2187',
-                                               s3_client])
+                                               s3_bucket])
         )
         index += last_index
     return parallel_processes
@@ -31,9 +31,9 @@ def finalize_processes(list_of_processes):
 
 
 def execute_parallel_uploads(plant_files_list, animal_files_list, human_files_list):
-    pool = Pool(processes= get_process_number(plant_files_list)\
-                           + get_process_number(animal_files_list)\
-                           + get_process_number(human_files_list))
+    num_processes = get_process_number(plant_files_list) + get_process_number(animal_files_list) + get_process_number(human_files_list)
+    print(num_processes)
+    pool = Pool(processes= num_processes)
 
     plants = get_parallel_process_list(pool,
                                        get_process_number(plant_files_list),
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
     KEY, SECRET = get_key_secret()
 
-    main_directory = "D:/capstone data"
+    main_directory = "../../capstone data"
     plant_files_list, animal_files_list, human_files_list = get_data_files(main_directory)
 
     s3_client = create_bucket('capstone-project-2187',
@@ -66,10 +66,12 @@ if __name__ == '__main__':
                               SECRET,
                               'us-west-2')
 
-    # s3_client = get_bucket('capstone-project-2187',
-    #                               KEY,
-    #                               SECRET,
-    #                               'us-west-2')
+    s3_resource = get_bucket('capstone-project-2187',
+                                  KEY,
+                                  SECRET,
+                                  'us-west-2')
+
+    s3_bucket = s3_resource.Bucket('capstone-project-2187')
 
 
     execute_parallel_uploads(plant_files_list,
