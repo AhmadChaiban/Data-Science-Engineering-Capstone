@@ -17,8 +17,8 @@ def get_data_files(main_directory):
 
     return plant_files_list, animal_files_list, human_files_list
 
-def log_upload_progress(index):
-    f = open('log.txt', 'w')
+def log_upload_progress(index, path):
+    f = open(path, 'w')
     f.write("Index to continue from: " + str(index))
     f.close()
 
@@ -29,7 +29,7 @@ def read_index_to_continue_from(path):
 
 if __name__ == '__main__':
     plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data')
-    full_list_directories = plant_files_list + animal_files_list + human_files_list
+    full_list_directories = plant_files_list #+ animal_files_list + human_files_list
     index_to_continue = read_index_to_continue_from('log.txt')
     for index, file in enumerate(full_list_directories):
         if index < index_to_continue:
@@ -38,4 +38,4 @@ if __name__ == '__main__':
         print('\n')
         key_path = 'raw_data' + '/' + file.split('/')[-2] + '/' + file.split('/')[-1]
         multi_part_upload_with_s3(file, key_path)
-        log_upload_progress(index)
+        log_upload_progress(index, 'log.txt')
