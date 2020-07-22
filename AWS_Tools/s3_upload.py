@@ -28,7 +28,7 @@ def read_index_to_continue_from(path):
         return int(data.split(' ')[-1])
 
 if __name__ == '__main__':
-    plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data')
+    plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data/imgFeatures')
     full_list_directories = plant_files_list #+ animal_files_list + human_files_list
     index_to_continue = read_index_to_continue_from('log.txt')
     for index, file in enumerate(full_list_directories):

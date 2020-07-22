@@ -64,5 +64,5 @@ if __name__ == '__main__':
     feature_names = globlin('../../capstone data/imgFeatures/*/*.*')
     plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data')
     # get_image_feature_vectors(plant_files_list)
-    # get_image_feature_vectors(animal_files_list)
-    get_image_feature_vectors(human_files_list)
+    get_image_feature_vectors(animal_files_list)
+    # get_image_feature_vectors(human_files_list)
