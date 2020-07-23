@@ -5,11 +5,9 @@ def get_data_files(main_directory):
     """
     Using glob to get the paths of all the file names
     to be uploaded
-
     :param main_directory: the main directory to begin searching
     :return: list of log file paths,
              list of song file paths
-
     """
     plant_files_list = globlin(main_directory + '/plant/*.*', recursive=True)
     animal_files_list = globlin(main_directory + '/animal/*.*', recursive=True)
@@ -28,10 +26,11 @@ def read_index_to_continue_from(path):
         return int(data.split(' ')[-1])
 
 if __name__ == '__main__':
-    plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data/imgFeatures')
-    full_list_directories = plant_files_list #+ animal_files_list + human_files_list
+    # plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data/compressed')
+    # full_list_directories = plant_files_list + animal_files_list + human_files_list
+    zip_file_list = globlin('../../capstone data/compressed/*.*', recursive=True)
     index_to_continue = read_index_to_continue_from('log.txt')
-    for index, file in enumerate(full_list_directories):
+    for index, file in enumerate(zip_file_list):
         if index < index_to_continue:
             print('skipping -- ' + str(index) + '/' + str(index_to_continue-1), end="\r")
             continue
