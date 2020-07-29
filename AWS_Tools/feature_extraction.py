@@ -1,11 +1,9 @@
 import tensorflow as tf
 import tensorflow_hub as hub
-import requests
 from misc import user_feedback, user_feedback_progress
 import numpy as np
 from s3_upload import get_data_files
 from glob import glob as globlin ## The 7bb globlin
-from multiprocessing import Pool
 
 def load_image(path):
     try:
