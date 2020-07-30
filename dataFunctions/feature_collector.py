@@ -40,9 +40,13 @@ def labeler(row):
 def assign_labels_to_features(feature_df):
     print('\n')
     pic_ids = feature_df.columns
+    print('Extracting Column ids')
     feature_df.columns = [''] * len(feature_df.columns)
+    print('labeling features...')
     column_labeled_features = create_col_labels_for_features(feature_df)
+    print('Adding ids to features... ')
     id_labeled_features = add_ids_to_feature_df(column_labeled_features, pic_ids)
+    print('Adding Categories to features')
     id_labeled_features['category_label'] = id_labeled_features.apply(labeler, axis=1)
     return id_labeled_features
 
@@ -50,4 +54,5 @@ if __name__ == '__main__':
     paths = get_img_features('../../capstone data/imgFeatures')
     feature_df = load_all_image_features(paths)
     image_df = assign_labels_to_features(feature_df)
+    print('saving csv')
     image_df.to_csv('image_df.csv', sep = ';', index_label = False)

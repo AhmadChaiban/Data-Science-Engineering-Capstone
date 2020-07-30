@@ -36,6 +36,7 @@ extract_img_features_plant = FeatureExtractorOperator(
     path_output = '../../../../capstone data/imgFeatures/',
     category = 'plant'
 )
+
 extract_img_features_animal = FeatureExtractorOperator(
     task_id = 'feature_extraction_animal',
     dag = dag,
@@ -44,6 +45,7 @@ extract_img_features_animal = FeatureExtractorOperator(
     path_output = '../../../../capstone data/imgFeatures/',
     category = 'animal'
 )
+
 extract_img_features_human = FeatureExtractorOperator(
     task_id = 'feature_extraction_human',
     dag = dag,
