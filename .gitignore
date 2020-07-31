@@ -20,3 +20,5 @@ Data/.DS_Store
 
 venv
 dataFunctions/image_df.csv
+
+dataFunctions/final_data/
