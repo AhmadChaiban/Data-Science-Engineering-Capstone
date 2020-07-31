@@ -10,15 +10,15 @@ class FeatureLabelOperator(BaseOperator):
     @apply_defaults
     def __init__(self,
                  main_path,
-                 output_path,
+                 category,
                  *args, **kwargs):
 
         super(FeatureLabelOperator, self).__init__(*args, **kwargs)
         self.main_path = main_path
-        self.output_path = output_path
+        self.category = category
 
     def get_img_features(self, main_path):
-        feature_paths = globlin(main_path + '/*/*.*')
+        feature_paths = globlin(main_path + f'/{self.category}/*.*')
         return feature_paths
 
     def load_all_image_features(self, directories):
@@ -28,6 +28,19 @@ class FeatureLabelOperator(BaseOperator):
             print(f'Loading features for {column_name} -- {index}/{len(directories)}', end='\r')
             feature_list.append(pd.DataFrame(np.loadtxt(directory), columns = [column_name]))
         return pd.concat(feature_list, axis = 1)
+
+    def divide_save_csv(self, df_length, image_df):
+        iterations = int(df_length/10000)
+        final_file_length = int(df_length%10000)
+        row_count_beg = 0
+        row_count_end = 10000
+        for idx in range(0, iterations):
+            print(f'Saving from index - {row_count_beg} to {row_count_end}', end = '\r')
+            image_df.loc[row_count_beg:row_count_end].to_csv(f'./final_data/{self.category}/image_df_{idx+1}.csv', sep = ';')
+            row_count_beg += 10000
+            row_count_end += 10000
+        print(f'Saving from index - {row_count_beg} to {final_file_length+row_count_end}', end = '\r')
+        image_df.loc[row_count_beg: final_file_length+row_count_end].to_csv(f'./final_data/{self.category}/image_df_{iterations+1}.csv', sep = ';')
 
     def create_col_labels_for_features(self, feature_df):
         feature_df_columns = []
@@ -65,4 +78,5 @@ class FeatureLabelOperator(BaseOperator):
         paths = self.get_img_features(self.main_path)
         feature_df = self.load_all_image_features(paths)
         image_df = self.assign_labels_to_features(feature_df)
-        image_df.to_csv(self.output_path + '/image_df.csv', sep = ';', index_label = False)
+        self.divide_save_csv(len(image_df), image_df)
+        # image_df.to_csv(self.outp ut_path + '/image_df.csv', sep = ';', index_label = False)

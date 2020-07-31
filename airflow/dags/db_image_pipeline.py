@@ -55,16 +55,37 @@ extract_img_features_human = FeatureExtractorOperator(
     category = 'human'
 )
 
-create_csv = FeatureLabelOperator(
-    task_id = 'feature_labeler',
+StandbyOperator = DummyOperator(
+    task_id='Standby',
+    dag=dag
+)
+
+create_csv_plant = FeatureLabelOperator(
+    task_id = 'feature_labeler_plant',
     dag = dag,
     main_path = '../../../../capstone data/imgFeatures',
-    output_path = '../../../../capstone data/imgFeatures'
+    category = 'plant'
+)
+
+create_csv_animal = FeatureLabelOperator(
+    task_id = 'feature_labeler_animal',
+    dag = dag,
+    main_path = '../../../../capstone data/imgFeatures',
+    category = 'animal'
+)
+
+create_csv_human = FeatureLabelOperator(
+    task_id = 'feature_labeler_human',
+    dag = dag,
+    main_path = '../../../../capstone data/imgFeatures',
+    category = 'human'
 )
 
 start_operator >> [extract_img_features_plant, extract_img_features_animal, extract_img_features_human]
 
-[extract_img_features_plant, extract_img_features_animal, extract_img_features_human] >> create_csv
+[extract_img_features_plant, extract_img_features_animal, extract_img_features_human] >> StandbyOperator
+
+StandbyOperator >> [create_csv_plant, create_csv_animal, create_csv_human]
 
 ### don't forget the two data quality checks
 

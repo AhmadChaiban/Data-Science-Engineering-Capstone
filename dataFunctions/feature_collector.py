@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from glob import glob as globlin ## The 7bb globlin
 
-def get_img_features(main_path):
-    feature_paths = globlin(main_path + '/*/*.*')
+def get_img_features(main_path, category):
+    feature_paths = globlin(main_path + f'/{category}/*.*')
     return feature_paths
 
 def load_all_image_features(directories):
@@ -37,18 +37,18 @@ def labeler(row):
     elif 'human' in row['picID']:
         return 2
 
-def divide_save_csv(df_length, image_df):
+def divide_save_csv(df_length, image_df, category):
     iterations = int(df_length/10000)
     final_file_length = int(df_length%10000)
     row_count_beg = 0
     row_count_end = 10000
     for idx in range(0, iterations):
         print(f'Saving from index - {row_count_beg} to {row_count_end}', end = '\r')
-        image_df.loc[row_count_beg:row_count_end].to_csv(f'./final_data/image_df_{idx+1}.csv', sep = ';')
+        image_df.loc[row_count_beg:row_count_end].to_csv(f'./final_data/{category}/image_df_{idx+1}.csv', sep = ';')
         row_count_beg += 10000
         row_count_end += 10000
     print(f'Saving from index - {row_count_beg} to {final_file_length+row_count_end}', end = '\r')
-    image_df.loc[row_count_beg: final_file_length+row_count_end].to_csv(f'./final_data/image_df_{iterations+1}.csv', sep = ';')
+    image_df.loc[row_count_beg: final_file_length+row_count_end].to_csv(f'./final_data/{category}/image_df_{iterations+1}.csv', sep = ';')
 
 def assign_labels_to_features(feature_df):
     print('\n')
@@ -64,9 +64,9 @@ def assign_labels_to_features(feature_df):
     return id_labeled_features
 
 if __name__ == '__main__':
-    paths = get_img_features('../../capstone data/imgFeatures')
+    paths = get_img_features('../../capstone data/imgFeatures', 'animal')
     feature_df = load_all_image_features(paths)
     image_df = assign_labels_to_features(feature_df)
     print('saving csv files...')
-    divide_save_csv(len(image_df), image_df)
+    divide_save_csv(len(image_df), image_df, 'animal')
     # image_df.to_csv('./final_data/image_df.csv', sep = ';', index_label = False)
