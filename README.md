@@ -37,7 +37,6 @@ makes the entire process more convenient for the Machine Learning.
     * The data is then uploaded in parallel to an s3 bucket. This makes the data available for not just myself, but many others who I can share with. 
         * Again, to make the Machine Learning more convenient, the output csv files are separated into 10,001 rows per file. This is because the matrix dimensions
         are 10,001 * 514 for every file. 
-    
 
 Note that the related files for these operations are
 1. **FeatureExtractorOperator.py**
@@ -71,7 +70,7 @@ The only thing that will need to be changed is the path to the new images and fe
 
 For the third scenario, the pipeline will have to further divided into more parallel processes within the categories rather than just the categories, and a more powerful machine or server 
 will need to be used to extract and transform the data. However, the core process will remain the same. The images will also be stored on
-separate drives (5500 of images) for the initial push. 
+separate drives (5500 of images) for the initial push. ß
 
 ## Checklist:
 - [x] Engineering the data <br>
@@ -80,6 +79,11 @@ separate drives (5500 of images) for the initial push.
 - [ ] Dashboards (health and clustering)
 
 The Machine Learning is coming soon!
+
+## Data Dictionary:
+
+<img align="center" src="./Diagrams/DataDictionary2.png" alt="dag">
+
 
 ## Datasets Used
 Please note that the data can be provided if it is required. 
