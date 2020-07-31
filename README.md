@@ -3,9 +3,12 @@
 ## Introduction
 For this project, I've collected about 1 million images of animals, plants and humans. I've evenly distributed the image count for each category, resulting in: 
 
-    *
+    * 376,683 images of animals
+    * 323,695 images of humans
+    * 310,030 images of plants
 
-These require processing and preparation for classification and clustering. A whole pipeline was built using Airflow and other tools in order to ease the Machine Learning process. 
+The end goal is to classify plants from humans from animals. Therefore, processing and preparation for classification and clustering was done. 
+A whole pipeline was built using Airflow and other tools in order to ease the Machine Learning process. 
 
 The main obstacle faced here was dealing with the massive 
 amount of data in the most optimal way (55 gbs of images). The process below was what I found to be suitable. 
@@ -22,7 +25,7 @@ classify and cluster the images, while regularly refining the model in the futur
     * The raw data had to be unpacked from all the different folders and renamed (to avoid naming conflicts) this is done by running the **dataFunctions/unpack_images.py** file. 
     * The s3 Bucket is created using **AWS_Tools/s3_create.py** (can also be deleted with **AWS_Tools/s3_delete.py**)
 2. ETL process:
-    * The image features are first extracted using the tensorflow hub api https://tfhub.dev/google/imagenet/mobilenet_v1_050_128/feature_vector/4. This process is divided 
+    * 512 features are first extracted for each image using the tensorflow hub api https://tfhub.dev/google/imagenet/mobilenet_v1_050_128/feature_vector/4. This process is divided 
     in parallel among the three image categories. 
     * A data quality/verification check is made for the features (in parallel for the three categories as well)
     * The data sets are constructed in parallel, each image is given a unique ID and category label (0 for plant, 1 for animal, 2 for human)
@@ -32,7 +35,7 @@ classify and cluster the images, while regularly refining the model in the futur
         are 10,001 * 514 for every file. 
     
 
-Note that the related files for these operations are: 
+Note that the related files for these operations are
 1. **FeatureExtractorOperator.py**
 2. **FeatureLabelOperator.py**
 3. **FeatureVerificationOperator.py**
