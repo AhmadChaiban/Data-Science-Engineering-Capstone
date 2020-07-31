@@ -20,6 +20,10 @@ amount of data in the most optimal way (55 gbs of images). The process below was
 The diagram above provides an overview of the process. The data is first processed on a computer or server, then sent to an s3 bucket. The end goal is to 
 classify and cluster the images, while regularly refining the model in the future. 
 
+The data model here includes the category label, picture ID, and all 512 features for each image, which is all that is required for both the 
+clustering and classification applications. Each table is split per category, and each one of those tables is split into several smaller ones. This 
+makes the entire process more convenient for the Machine Learning. 
+
 ## Process
 1. Basic preprocess (image naming and directory organization) and upload to s3 bucket. There are about 55 gbs of images.
     * The raw data had to be unpacked from all the different folders and renamed (to avoid naming conflicts) this is done by running the **dataFunctions/unpack_images.py** file. 
@@ -31,7 +35,7 @@ classify and cluster the images, while regularly refining the model in the futur
     * The data sets are constructed in parallel, each image is given a unique ID and category label (0 for plant, 1 for animal, 2 for human)
     * Another data quality check is made per category and for every csv file. 
     * The data is then uploaded in parallel to an s3 bucket. This makes the data available for not just myself, but many others who I can share with. 
-        * To make the Machine Learning more convenient, the output csv files are separated into 10,001 rows per file. This is because the matrix dimensions
+        * Again, to make the Machine Learning more convenient, the output csv files are separated into 10,001 rows per file. This is because the matrix dimensions
         are 10,001 * 514 for every file. 
     
 
