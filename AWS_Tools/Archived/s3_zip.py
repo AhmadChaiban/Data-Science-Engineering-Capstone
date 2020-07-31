@@ -19,8 +19,8 @@ def create_zip_file(path, zip_name):
                 zipObj.write(filePath, basename(filePath))
 
 if __name__ == '__main__':
-    main_path = '../../capstone data/imgFeatures'
-    zip_path = '../../capstone data/compressed/'
+    main_path = '../../../capstone data/imgFeatures'
+    zip_path = '../../../capstone data/compressed/'
     create_zip_file(main_path + '/plant', zip_path + 'plant.zip')
     create_zip_file(main_path + '/animal', zip_path + 'animal.zip')
     create_zip_file(main_path + '/human', zip_path + 'human.zip')

@@ -1,23 +1,82 @@
 # Data Science and Engineering Capstone
 
 ## Introduction
-I've collected about 1 million images of animals, plants and humans. 
+For this project, I've collected about 1 million images of animals, plants and humans. I've evenly distributed the image count for each category, resulting in: 
 
-## Inital Architecture
+    *
 
-![alt text](./Diagrams/Initial_Design_v4.png)
+These require processing and preparation for classification and clustering. A whole pipeline was built using Airflow and other tools in order to ease the Machine Learning process. 
+
+The main obstacle faced here was dealing with the massive 
+amount of data in the most optimal way (55 gbs of images). The process below was what I found to be suitable. 
+
+## Architecture
+
+![alt text](./Diagrams/pipeline_model.png)
+
+The diagram above provides an overview of the process. The data is first processed on a computer or server, then sent to an s3 bucket. The end goal is to 
+classify and cluster the images, while regularly refining the model in the future. 
 
 ## Process
-The list of numbers below refers to each phase in the diagram
 1. Basic preprocess (image naming and directory organization) and upload to s3 bucket. There are about 55 gbs of images.
-- The raw data had to be unpacked from all the different folders and renamed (to avoid naming conflicts)
-2. Start of ETL process
+    * The raw data had to be unpacked from all the different folders and renamed (to avoid naming conflicts) this is done by running the **dataFunctions/unpack_images.py** file. 
+    * The s3 Bucket is created using **AWS_Tools/s3_create.py** (can also be deleted with **AWS_Tools/s3_delete.py**)
+2. ETL process:
+    * The image features are first extracted using the tensorflow hub api https://tfhub.dev/google/imagenet/mobilenet_v1_050_128/feature_vector/4. This process is divided 
+    in parallel among the three image categories. 
+    * A data quality/verification check is made for the features (in parallel for the three categories as well)
+    * The data sets are constructed in parallel, each image is given a unique ID and category label (0 for plant, 1 for animal, 2 for human)
+    * Another data quality check is made per category and for every csv file. 
+    * The data is then uploaded in parallel to an s3 bucket. This makes the data available for not just myself, but many others who I can share with. 
+        * To make the Machine Learning more convenient, the output csv files are separated into 10,001 rows per file. This is because the matrix dimensions
+        are 10,001 * 514 for every file. 
+    
+
+Note that the related files for these operations are: 
+1. **FeatureExtractorOperator.py**
+2. **FeatureLabelOperator.py**
+3. **FeatureVerificationOperator.py**
+4. **CsvVerificationOperator.py**
+5. **s3UploadOperator.py**
+
+The DAG file is **db_image_pipeline.py**. These files can all be found in the airflow directory.
+
+## Dag structure:
+<p align = "center">
+    <img align="center" src="./Diagrams/dag2.png" alt="dag">
+</p>
 
 ## Tools
-1. Apache Airflow
-2. Apache Spark
+1. Apache Airflow was used to manage the data pipeline
+2. boto3 to manage creating, uploading to and deleting the s3 bucket 
+3. s3 Bucket to make the data available to over 100 other participants
+4. tensorflow hub (to extract the image features)
+5. python libraries such as pandas to manage the databases
 
-## Potential Datasets
+## Other scenarios
+The project is essentially divided into three phases. 
+1. The initial push of about 1 million images.
+2. Scheduling the pipeline to run at 7am every day
+3. Increasing the data by 100x
+
+For the second scenario, new data will constantly be added everyday, and the pipeline will be adjusted accordingly. 
+The only thing that will need to be changed is the path to the new images and feature output. 
+
+For the third scenario, the pipeline will have to further divided into more parallel processes within the categories rather than just the categories, and a more powerful machine or server 
+will need to be used to extract and transform the data. However, the core process will remain the same. The images will also be stored on
+separate drives (5500 of images) for the initial push. 
+
+## Checklist:
+- [x] Engineering the data <br>
+- [ ] t-SNE implementation (clustering) <br>
+- [ ] Classification <br>
+- [ ] Dashboards (health and clustering)
+
+The Machine Learning is coming soon!
+
+## Datasets Used
+Please note that the data can be provided if it is required. 
+
 Animals:
 1. https://www.kaggle.com/salil007/caavo
 2. https://www.kaggle.com/alessiocorrado99/animals10

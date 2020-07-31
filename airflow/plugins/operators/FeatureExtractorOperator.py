@@ -107,5 +107,5 @@ class FeatureExtractorOperator(BaseOperator):
                 print(f'\nFile may not exist, please verify {id}')
             index += 1
 
-    def extract(self, context):
+    def execute(self, context):
         self.get_image_feature_vectors(self.cateogry_list)

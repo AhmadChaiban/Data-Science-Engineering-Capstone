@@ -74,7 +74,7 @@ class FeatureLabelOperator(BaseOperator):
         id_labeled_features['category_label'] = id_labeled_features.apply(self.labeler, axis=1)
         return id_labeled_features
 
-    def create_csv(self, context):
+    def execute(self, context):
         paths = self.get_img_features(self.main_path)
         feature_df = self.load_all_image_features(paths)
         image_df = self.assign_labels_to_features(feature_df)

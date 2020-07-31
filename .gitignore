@@ -22,3 +22,9 @@ venv
 dataFunctions/image_df.csv
 
 dataFunctions/final_data/
+
+airflow/plugins/operators/__pycache__/
+
+airflow/plugins/__pycache__/
+
+airflow/dags/__pycache__/
