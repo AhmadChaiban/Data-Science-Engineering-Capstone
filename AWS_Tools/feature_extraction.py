@@ -12,7 +12,8 @@ def load_image(path):
         # Decode the img to a W x H x 3 tensor of type uint8
         img = tf.io.decode_jpeg(img, channels=3)
         # Resize image to 224 x 224 x 3
-        img = tf.image.resize_with_pad(img, 224, 224)
+        # img = tf.image.resize_with_pad(img, 224, 224)
+        img = tf.image.resize_with_pad(img, 128, 128)
         # Converts the data type of uint8 to float32 by adding a new axis
         # img becomes 1 x 224 x 224 x 3 tensor with data type of float32
         # This is required for the mobilenet model
@@ -29,7 +30,11 @@ def check_if_file_name_exists(outputPath):
 
 def get_image_feature_vectors(set_of_images):
     # Definition of module with using tfhub.dev
-    module_handle = "https://tfhub.dev/google/imagenet/mobilenet_v2_140_224/feature_vector/4"
+    module_handle = "https://tfhub.dev/google/imagenet/mobilenet_v1_050_128/feature_vector/4"
+    ## https://tfhub.dev/google/imagenet/inception_v1/feature_vector/4
+    ## https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4
+    ## https://tfhub.dev/google/imagenet/mobilenet_v1_050_128/feature_vector/4
+    ## https://tfhub.dev/google/imagenet/mobilenet_v2_140_224/feature_vector/4
     user_feedback(f"MobileNetv2 URL {module_handle}")
     # Loads the module
     module = hub.load(module_handle)
@@ -62,5 +67,5 @@ if __name__ == '__main__':
     feature_names = globlin('../../capstone data/imgFeatures/*/*.*')
     plant_files_list, animal_files_list, human_files_list = get_data_files('../../capstone data')
     # get_image_feature_vectors(plant_files_list)
-    get_image_feature_vectors(animal_files_list)
-    # get_image_feature_vectors(human_files_list)
+    # get_image_feature_vectors(animal_files_list)
+    get_image_feature_vectors(human_files_list)
