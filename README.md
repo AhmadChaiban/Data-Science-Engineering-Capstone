@@ -86,7 +86,6 @@ The Machine Learning is coming soon!
 
 
 ## Datasets Used
-Please note that the data can be provided if it is required. 
 
 Animals:
 1. https://www.kaggle.com/salil007/caavo
