@@ -70,11 +70,23 @@ The only thing that will need to be changed is the path to the new images and fe
 
 For the third scenario, the pipeline will have to further divided into more parallel processes within the categories rather than just the categories, and a more powerful machine or server 
 will need to be used to extract and transform the data. However, the core process will remain the same. The images will also be stored on
-separate drives (5500 of images) for the initial push. ß
+separate drives (5500 of images) for the initial push.
+
+## t-SNE Visualization of Data:
+The following is a sample visualization of the three categories when using t-SNE. 
+
+There seems to be a subtle separation between the clusters from the middle upwards. However, note 
+that this is only a small sample of the data that exists (about 30,000 rows). The final dashboard that will 
+contain the t-SNE will contain the entire data set, and will be undersampled without compromising the integrity 
+of the clusters. 
+
+<p align = "center">
+    <img align="center" src="./Machine%20Learning/tSNE-Demo.gif" alt="tSNE" height = 600 width = 1000>
+</p>
 
 ## Checklist:
 - [x] Engineering the data <br>
-- [ ] t-SNE implementation (clustering) <br>
+- [X] t-SNE implementation (clustering) <br>
 - [ ] Classification <br>
 - [ ] Dashboards (health and clustering)
 
